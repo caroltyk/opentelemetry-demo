@@ -28,6 +28,7 @@ services:
     volumes:
       - ./confs/tyk_pro.conf:/opt/tyk-gateway/tyk.conf
       - ./certs:/opt/tyk-gateway/certs
+      - ./goplugins/dummy_plugin.so:/opt/tyk-gateway/goplugins/dummy_plugin.so
     environment:
       - TYK_GW_POLICIES_POLICYCONNECTIONSTRING=${TYK_DASHBOARD_HOST}:${TYK_DASHBOARD_PORT}
       - TYK_GW_DBAPPCONFOPTIONS_CONNECTIONSTRING=${TYK_DASHBOARD_HOST}:${TYK_DASHBOARD_PORT}
@@ -35,8 +36,10 @@ services:
       - TYK_GW_TRACER_NAME
       - TYK_GW_TRACER_OPTIONS_URL
       - TYK_GW_TRACER_OPTIONS_TIMEOUT
+      - DOCKER_DEFAULT_PLATFORM=linux/amd64
     depends_on:
       - tyk-redis
+      - tyk-mongo
   tyk-redis:
     image: redis:6.0.4
     ports:

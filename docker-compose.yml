@@ -54,9 +54,11 @@ services:
       - TYK_GW_TRACER_NAME
       - TYK_GW_TRACER_OPTIONS_URL
       - TYK_GW_TRACER_OPTIONS_TIMEOUT
+      - DOCKER_DEFAULT_PLATFORM=linux/amd64
     volumes:
       - ./src/tyk/confs/tyk_pro.conf:/opt/tyk-gateway/tyk.conf
       - ./src/tyk/certs:/opt/tyk-gateway/certs
+      - ./src/tyk/goplugins/dummy_plugin.so:/opt/tyk-gateway/goplugins/dummy_plugin.so
     depends_on:
       - tyk-redis
       - otelcol
